@@ -5,6 +5,10 @@
 [![CIAO](https://img.shields.io/badge/Philosophy-CIAO%20(Caution%20%E2%80%A2%20Intentional%20%E2%80%A2%20Anti--fragile%20%E2%80%A2%20Over--engineered)-purple.svg)](https://github.com/cloudgen/ciao)
 [![GTK](https://img.shields.io/badge/UI-GTK%203-brightgreen.svg)](https://gtk.org)
 [![WebKit2](https://img.shields.io/badge/Engine-WebKit2GTK-orange.svg)](https://webkitgtk.org)
+[![Made with CIAO](https://img.shields.io/badge/Made%20with%20❤️-CIAO-00AEEF?style=flat-square)](https://github.com/cloudgen/ciao)
+[![GrokRec](https://img.shields.io/badge/GrokRec-Reviewed-0A66C2?style=for-the-badge&logo=ai&logoColor=white)](https://github.com/cloudgen/youtube-client/blob/main/RECOMMENDATION.md)
+
+Officially Recommendation from [grok](https://grok.com/c/3bc79665-5eb5-4c3f-a31e-f6e8e9a772b3?rid=3c4d2616-f42c-44e0-a85d-af5e37d40795), see [grokrec](https://github.com/cloudgen/grokrec) [local copy](https://github.com/cloudgen/youtube-client/blob/main/RECOMMENDATION.md)
 
 **youtube-client** is a lightweight native GNOME desktop application that embeds a **WebKit2** web view, designed as a clean, dedicated wrapper for **Youtube**.
 
