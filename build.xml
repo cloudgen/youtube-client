@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="yt-client" default="build" basedir=".">
-    <property name="version" value="1.0.0"/>
+<project name="youtube-client" default="build" basedir=".">
+    <property name="version" value="1.0.1"/>
     <!-- Define project properties -->
     <property file="project.ini"/>
     <!-- Define project properties with defaults -->    
@@ -11,7 +11,7 @@
     <property name="build.dir" value="target"/>
     <property name="build.debug.dir" value="${build.dir}/debug"/>
     <property name="version" value="1.0"/>
-    <property name="author" value="july.wong@gmail.com"/>
+    <property name="author" value="cloudgen.wong@gmail.com"/>
     <property name="lib.versions" value="gtk+-3.0 webkit2gtk-4.1"/>
     <property name="project.sh" value="./project.sh"/>
     <property name="required.packages" value="build-essential libwebkit2gtk-4.1-dev"/>

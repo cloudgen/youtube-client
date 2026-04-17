@@ -91,7 +91,6 @@ logs/
 # =============================================
 # CIAO / Project specific
 # =============================================
-project.sh
 config.*
 
 # Ignore backup files
