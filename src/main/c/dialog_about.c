@@ -15,6 +15,11 @@
 #include <glib.h>
 #include <string.h>
 
+// For libc version detection
+#ifdef __GLIBC__
+#include <gnu/libc-version.h>
+#endif
+
 #ifdef __linux__
 #include <sys/utsname.h>
 #endif
@@ -32,35 +37,32 @@ static gchar* get_platform_info(void)
     
     if (os_name) {
         g_string_append_printf(info, "%s", os_name);
-        if (os_version) g_string_append_printf(info, " %s", os_version);
+        if (os_version) 
+            g_string_append_printf(info, " %s", os_version);
     } else {
         g_string_append(info, "Linux");
     }
 
     // libc detection
-    const gchar *libc = "unknown";
 #ifdef __GLIBC__
-    libc = "glibc";
-    gchar *glibc_ver = g_strdup(gnu_get_libc_version());
+    const char *glibc_ver = gnu_get_libc_version();
     if (glibc_ver) {
         g_string_append_printf(info, " • glibc %s", glibc_ver);
-        g_free(glibc_ver);
     }
 #elif defined(__MUSL__)
-    libc = "musl";
     g_string_append(info, " • musl");
 #elif defined(__UCLIBC__)
-    libc = "uClibc";
     g_string_append(info, " • uClibc");
+#else
+    g_string_append(info, " • unknown libc");
 #endif
 
-    g_string_append_printf(info, " • %s", libc);
-
     // Architecture
-    gchar *arch = g_strdup(g_getenv("HOSTTYPE"));
-    if (!arch || !*arch) arch = g_strdup("unknown");
-    g_string_append_printf(info, " • %s", arch);
-    g_free(arch);
+    const gchar *arch = g_getenv("HOSTTYPE");
+    if (arch && *arch)
+        g_string_append_printf(info, " • %s", arch);
+    else
+        g_string_append(info, " • unknown arch");
 
     return g_string_free(info, FALSE);
 }
@@ -85,6 +87,7 @@ void on_show_about_activate(GtkMenuItem *menu_item, gpointer user_data)
     gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), PROJECT_NAME);
     gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), 
         g_strdup_printf("%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH));
+    
     gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),
         "A lightweight native YouTube client built with WebKitGTK\n"
         "No Electron • No bloat • Pure GNOME experience");
@@ -92,16 +95,21 @@ void on_show_about_activate(GtkMenuItem *menu_item, gpointer user_data)
     gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog),
         "© 2026 Cloudgen Wong. All rights reserved.");
     
-    gtk_about_dialog_set_license_type(GTK_ABOUT_DIALOG(dialog), GTK_LICENSE_MIT);
-    gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "https://github.com/cloudgen/youtube-client");
-    gtk_about_dialog_set_website_label(GTK_ABOUT_DIALOG(dialog), "GitHub Repository");
-    gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), (const gchar*[]){"Cloudgen Wong (@cloudgen)", NULL});
-    
-    // Extra platform info
+    // Use GTK_LICENSE_CUSTOM instead of GTK_LICENSE_MIT for broader GTK compatibility
+    gtk_about_dialog_set_license_type(GTK_ABOUT_DIALOG(dialog), GTK_LICENSE_CUSTOM);
+    gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog),
+        "This project is licensed under the MIT License.\n\n"
+        "See LICENSE.md for full license text.");
+
+    gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), 
+        "https://github.com/cloudgen/youtube-client");
+    gtk_about_dialog_set_website_label(GTK_ABOUT_DIALOG(dialog), 
+        "GitHub Repository");
+
+    gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), 
+        (const gchar*[]){"Cloudgen Wong (@cloudgen)", NULL});
+
     gtk_about_dialog_set_logo_icon_name(GTK_ABOUT_DIALOG(dialog), "applications-internet");
-    gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),
-        g_strdup_printf("Built for: %s\n\nA clean, efficient alternative to Electron-based clients.",
-                        platform));
 
     ciao_debug("About dialog displayed for %s %d.%d.%d", 
                PROJECT_NAME, VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);

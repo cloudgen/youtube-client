@@ -9,26 +9,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ## [1.0.2] - 2026-04-18
 
 ### Added
-- Generic bookmark system: `menu_bookmark.c` + `menu_bookmark.h` providing reusable callback `on_menu_bookmark_clicked`
-- YouTube-specific bookmark menu (`menu_bookmark_youtube.c`) now uses the centralized generic callback
-- Centralized URL bar callbacks via new `url_bar_callbacks.h` for better cross-file and cross-project flexibility
-- Full support for Enter key in URL bar (same behavior as Go button)
-- Strong defensive documentation for SyncPrjs cloning compatibility in `project.h`
+- Rich **About Dialog** (`dialog_about.c` + `dialog_about.h`) using `GtkAboutDialog`
+  - Displays application name, version, description, author, GitHub link
+  - Shows platform, OS version, architecture, and libc information (glibc/musl/etc.)
+  - Proper MIT license display
+- Both **"About"** (rich information) and **"Show Version"** (simple version dialog) available in the menu
+- Platform detection helper with detailed system information
+- Dual About menu structure following GNOME HIG recommendations
 
 ### Changed
-- Renamed bookmark callback from `on_menu_item_clicked` to `on_menu_bookmark_clicked` for clarity and intent
-- Updated all header comments and protection rules to reflect current modular architecture
-- Improved documentation throughout the codebase with clearer CIAO protection rules
-- `PROJECT_NAME` intentionally kept as `"Youtube (client)"` with detailed explanation for SyncPrjs workflow
+- `on_show_about_activate()` now provides comprehensive application and system information
+- Updated menu structure in `main.c` to include both About and Version entries under the "About" submenu
+- Improved version dialog (`dialog_version.c`) consistency with new About dialog
 
 ### Improved
-- Modular separation between generic logic and project-specific logic (better reusability for future forks)
-- Signal handling architecture for URL bar (more robust and maintainable)
-- Cross-file callback linkage safety (no `static` on callbacks used by `g_signal_connect`)
+- Better user experience with modern, informative About dialog
+- Enhanced transparency by showing build/platform details
+- Stronger alignment with GNOME Human Interface Guidelines
 
 ### Fixed
-- Outdated comments in `menu_bookmark_youtube.h`
-- Minor typo in include comment (`includ` → `include`)
+- Build compatibility issues in `dialog_about.c` (`GTK_LICENSE_MIT` → `GTK_LICENSE_CUSTOM`, proper libc header inclusion)
+
+---
+
+## [1.0.1] - 2026-04-18
+
+### Added
+- Generic bookmark system: `menu_bookmark.c` + `menu_bookmark.h` providing reusable callback `on_menu_bookmark_clicked`
+- YouTube-specific bookmark menu now uses the centralized generic callback
+- Centralized URL bar callbacks via `url_bar_callbacks.h`
+- Full support for Enter key in URL bar
+- Strong defensive documentation for SyncPrjs cloning compatibility
+
+### Changed
+- Renamed bookmark callback to `on_menu_bookmark_clicked` for better clarity
+- Improved modular separation and documentation
 
 ---
 
@@ -36,19 +51,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 - Initial stable release of native YouTube client using WebKitGTK
-- Persistent cookie storage (`~/.app/youtube-client/cookies/`)
-- User-Agent spoofing menu (Chrome default + Firefox, Safari, Edge)
-- Bookmark menu with Start Page and Profile Page
-- URL bar with real-time updates (`notify::uri` + `load-changed`)
+- Persistent cookie storage
+- User-Agent spoofing menu
+- Bookmark menu
+- Smart URL bar with real-time updates
 - Version dialog
-- Centralized output system with `--quiet`, `--json`, and `DEBUG=1` support
-- Full CIAO defensive coding style implementation
+- Centralized output system with `--quiet`, `--json`, `DEBUG=1`
+- Full CIAO defensive coding style
 
 ### Features
 - Lightweight native GNOME application (no Electron)
-- Proper GTK/WebKitGTK integration
-- Defensive programming with extensive protection rules
-- Multi-build system support (Make, Meson, etc.)
+- Multi-build system support
 
 ---
 
@@ -56,9 +69,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Planned for future versions
 - Progress indicator during page load
-- Reload menu item
-- Keyboard shortcuts
-- History support
+- Reload menu item / button
+- Keyboard shortcuts (e.g. F5, Ctrl+R)
+- Basic history support
 - Flathub packaging
 
 ---
