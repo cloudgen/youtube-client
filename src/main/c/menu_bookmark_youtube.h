@@ -1,12 +1,11 @@
-// menu_bookmark_youtube.h
 // =========================================================================
-// CIAO DEFENSIVE CODING STYLE - GITHUB BOOKMARK MENU HEADER (GNOME + GTK)
+// CIAO DEFENSIVE CODING STYLE - YOUTUBE BOOKMARK MENU HEADER (GNOME + GTK)
 // =========================================================================
 //
 // !!! THIS IS A GNOME/GTK APPLICATION !!!
 // !!! DO NOT REMOVE OR MODIFY ANY HEADER OR FUNCTION COMMENT BLOCK !!!
 // 
-// Last aligned with SyncPrjs CIAO style + GNOME + Output System: 2026-04-12
+// Last aligned with SyncPrjs CIAO style + GNOME + Output System: 2026-04-18
 // =========================================================================
 
 #ifndef MENU_BOOKMARK_YOUTUBE_H
@@ -15,15 +14,15 @@
 #include <gtk/gtk.h>
 
 // =========================================================================
-// Public API - Youtube Bookmark Menu Module
+// Public API - YouTube Bookmark Menu Module
 // 
 // Purpose:
-//   Provides a bookmark submenu with quick links to important Youtube pages
+//   Provides a bookmark submenu with quick links to important YouTube pages
 //   (Start Page, Profile Page, etc.).
 // 
 // Design Rules:
 //   - Only public function is exposed.
-//   - Internal callback (on_menu_item_clicked) is hidden in .c file.
+//   - Uses the generic callback (on_menu_bookmark_clicked) from menu_bookmark.c
 //   - Uses data passing via g_object_set_data for clean GTK integration.
 // 
 // Protection Rule:
@@ -39,9 +38,6 @@
 // 
 // Returns:
 //   GtkWidget* - The top-level "Bookmark" menu item (with submenu attached)
-// 
-// Protection:
-//   Performs NULL check in implementation and logs via ciao_output system.
 // =========================================================================
 GtkWidget* add_bookmark_menu_youtube(GtkEntry *url_entry);
 

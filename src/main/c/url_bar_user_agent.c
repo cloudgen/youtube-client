@@ -17,10 +17,38 @@
 // Last aligned with CIAO style + User-Agent feature: 2026-04-14
 // =========================================================================
 
+// =========================================================================
+// CRITICAL NOTE ON CROSS-FILE CALLBACK INTEGRATION (CIAO FLEXIBILITY RULE)
+// =========================================================================
+//
+// DESIGN GOAL:
+//   Support both complete (url_bar_user_agent.c) and incomplete / legacy
+//   (url_bar.c) integrations without modifying callback code.
+//
+// SOLUTION:
+//   - No 'static' keyword on callbacks → external linkage
+//   - Central header url_bar_callbacks.h provides clean declarations
+//   - Callbacks can be connected from any .c file that includes the header
+//
+// This architecture allows:
+//   - Current project (url_bar_user_agent.c)
+//   - Other projects using simpler url_bar.c
+//   - Future refactors
+//
+//   without any changes to on_go_button_clicked(), on_uri_changed(), 
+//   or on_load_changed().
+//
+// CIAO DEFENSIVE RULE (Principle 18):
+//   These callback functions MUST remain non-static.
+//   Adding 'static' will break cross-file signal connections and is
+//   explicitly forbidden.
+//
+// Last aligned with flexible integration + linker safety: 2026-04-18
+// =========================================================================
+
 #include "project.h"
 #include "url_bar_user_agent.h"
-#include "url_bar_page.h"
-#include "url_bar_go_button.h"
+#include "url_bar_callbacks.h"     // ← Preferred central include
 #include "output.h"
 #include <gtk/gtk.h>
 

@@ -1,4 +1,3 @@
-// project.h
 // =========================================================================
 // CIAO DEFENSIVE CODING STYLE - PROJECT CONFIGURATION HEADER
 // =========================================================================
@@ -7,7 +6,7 @@
 // !!! THIS FILE IS THE SINGLE SOURCE OF TRUTH FOR PROJECT METADATA !!!
 // !!! DO NOT REMOVE OR MODIFY ANY HEADER OR DEFINE COMMENT BLOCK !!!
 // 
-// Last aligned with SyncPrjs CIAO style + GNOME + Output System: 2026-04-12
+// Last aligned with SyncPrjs CIAO style + GNOME + Output System: 2026-04-18
 // =========================================================================
 
 #ifndef PROJECT_H
@@ -19,14 +18,29 @@
 // Purpose:
 //   Centralizes all project-specific constants (name, version, URLs, paths).
 //   This is the Single Source of Truth for application identity and settings.
-// 
-// Protection Rule:
-//   Future AI must NOT duplicate any of these defines elsewhere in the project.
-//   All modules must include "project.h" to access these values.
+//
+// INTENTIONAL DESIGN DECISION (DO NOT CHANGE WITHOUT UNDERSTANDING):
+//
+//   PROJECT_NAME is deliberately set to "Youtube (client)" instead of 
+//   "YouTube Client" or similar.
+//
+//   Reason:
+//     This project is designed to be cloned and adapted using 
+//     https://github.com/Wilgat/SyncPrjs. The suffix "(client)" allows
+//     SyncPrjs to automatically detect and replace the base name while
+//     preserving the "(client)" pattern across forks (e.g. Github (client),
+//     Reddit (client), etc.).
+//
+//   Protection Rule:
+//     Future AI or developers MUST NOT "fix" or beautify PROJECT_NAME.
+//     Any change to this value must preserve the "(client)" suffix format
+//     to maintain compatibility with the SyncPrjs cloning system.
+//     Violating this breaks the intended multi-project templating workflow.
+//
 // =========================================================================
 
 #define PROJECT_ID      "youtube-client"
-#define PROJECT_NAME    "Github (client)"
+#define PROJECT_NAME    "Youtube (client)"
 
 // =========================================================================
 // Version Information
