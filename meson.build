@@ -22,7 +22,7 @@
 
 project('youtube-client',
     'c',
-    version: '1.0.1',
+    version: '1.0.2',
     license: 'MIT',
     default_options: [
         'warning_level=3',

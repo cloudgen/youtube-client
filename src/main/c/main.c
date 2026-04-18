@@ -7,18 +7,19 @@
 // !!! ONLY g_print() / g_printerr() ARE ALLOWED THROUGH ciao_* FUNCTIONS !!!
 // !!! MUST CALL ciao_output_init() VERY EARLY !!!
 //
-// Last aligned with SyncPrjs CIAO style + GNOME + Output System: 2026-04-12
+// Last aligned with SyncPrjs CIAO style + GNOME + Output System: 2026-04-18
 // =========================================================================
 
 #include "output.h"
 #include "project.h"
 #include "cookies.h"
 #include "dialog_version.h"
+#include "dialog_about.h"          // New: Rich About dialog
 #include "load_page.h"
 #include "menu_exit.h"
-#include "url_bar_user_agent.h"        // Updated: renamed + extended with UA support
+#include "url_bar_user_agent.h"
 #include "menu_bookmark_youtube.h"
-#include "menu_user_agent.h"           // New: User Agent menu
+#include "menu_user_agent.h"
 
 #include <gtk/gtk.h>
 #include <webkit2/webkit2.h>
@@ -80,7 +81,7 @@ int main(int argc, char *argv[])
     }
 
     // ====================================================================
-    // URL Bar + User-Agent Display (Updated)
+    // URL Bar + User-Agent Display
     // ====================================================================
     UrlBarUserAgent url_bar = add_url_bar_user_agent(web_view);
 
@@ -92,11 +93,11 @@ int main(int argc, char *argv[])
     // File Menu
     GtkWidget *file_menu = gtk_menu_new();
 
-    // Bookmark menu (existing)
+    // Bookmark menu
     GtkWidget *bookmark_menu_item = add_bookmark_menu_youtube(url_bar.url_entry);
     gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), bookmark_menu_item);
 
-    // New: User Agent menu
+    // User Agent menu
     GtkWidget *user_agent_menu_item = add_user_agent_menu(url_bar.ua_label, web_view);
     if (user_agent_menu_item != NULL) {
         gtk_menu_shell_append(GTK_MENU_SHELL(file_menu), user_agent_menu_item);
@@ -113,12 +114,19 @@ int main(int argc, char *argv[])
     GtkWidget *file_menu_item = gtk_menu_item_new_with_label("File");
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item), file_menu);
 
-    // About Menu (existing)
+    // ====================== ABOUT MENU (Both About + Version) ======================
     GtkWidget *about_menu = gtk_menu_new();
+
+    // Rich About dialog
+    GtkWidget *show_about_menu_item = gtk_menu_item_new_with_label("About");
+    g_signal_connect(show_about_menu_item, "activate", 
+                    G_CALLBACK(on_show_about_activate), window);
+    gtk_menu_shell_append(GTK_MENU_SHELL(about_menu), show_about_menu_item);
+
+    // Simple Version dialog
     GtkWidget *show_version_menu_item = gtk_menu_item_new_with_label("Show Version");
     g_signal_connect(show_version_menu_item, "activate", 
                     G_CALLBACK(on_show_version_activate), window);
-
     gtk_menu_shell_append(GTK_MENU_SHELL(about_menu), show_version_menu_item);
 
     GtkWidget *about_menu_item = gtk_menu_item_new_with_label("About");

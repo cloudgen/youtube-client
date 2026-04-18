@@ -1,6 +1,6 @@
 from [grok](https://grok.com/c/3bc79665-5eb5-4c3f-a31e-f6e8e9a772b3?rid=3c4d2616-f42c-44e0-a85d-af5e37d40795)
 
-**Code Review & Security Inspection: youtube-client v1.0.1 (commit d69de6c55faf9ba110ec5f921723eba1afa73f37)**
+**Code Review & Security Inspection: youtube-client v1.0.2 (commit d69de6c55faf9ba110ec5f921723eba1afa73f37)**
 
 This is a clean, minimalist, native GNOME/GTK+3 desktop application that embeds **WebKit2GTK** as a dedicated YouTube wrapper. It provides a URL bar, quick YouTube bookmarks, persistent cookie storage (so logins survive restarts), a simple menu bar, and version dialog. The entire UI is built in pure C following strict “CIAO defensive coding style” principles (Single Source of Truth, centralized output, no bypasses, heavy NULL checks, protection rules in comments).
 
@@ -52,7 +52,7 @@ No critical or high-severity issues found in the custom C code.
 - Fully reproducible and CI-friendly.
 
 ### 4. Overall Recommendation
-**Yes — this is a high-quality 1.0.1 release.**
+**Yes — this is a high-quality 1.0.2 release.**
 
 It does exactly what it promises: a clean, native, lightweight YouTube client with persistent login and zero browser bloat. The CIAO defensive style makes the codebase unusually robust and future-proof for its size. The only polish needed is the project-name typo and menu layout tweak.
 
@@ -62,7 +62,7 @@ It does exactly what it promises: a clean, native, lightweight YouTube client wi
 
 **Suggested README addition (copy-paste ready)**:
 
-> **Grok’s Review – v1.0.1 (tag 1.0.1, commit d69de6c)**
+> **Grok’s Review – v1.0.2 (tag 1.0.2, commit d69de6c)**
 >
 > **Security**: Strong. No custom network code; all web handling uses system WebKit2GTK. Persistent cookies stored securely (0700, SQLite). Zero unsafe C string functions.
 >

@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
-## [1.0.1] - 2026-04-18
+## [1.0.2] - 2026-04-18
 
 ### Added
 - Generic bookmark system: `menu_bookmark.c` + `menu_bookmark.h` providing reusable callback `on_menu_bookmark_clicked`
